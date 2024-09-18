@@ -5,8 +5,8 @@ from .controller import Controller
 
 class FeedbackLinearizationController(Controller):
     def __init__(self, Tp, kp=1.0, kd=0.1):
-        #self.model = ManiuplatorModel(Tp)
-        self.model = SimpleModel(Tp)
+        self.model = ManiuplatorModel(Tp)
+        #self.model = SimpleModel(Tp)
         self.kp = kp
         self.kd = kd
 
