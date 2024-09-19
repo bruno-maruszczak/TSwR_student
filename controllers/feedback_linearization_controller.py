@@ -4,7 +4,7 @@ from .controller import Controller
 
 
 class FeedbackLinearizationController(Controller):
-    def __init__(self, Tp, kp=1.0, kd=0.1):
+    def __init__(self, Tp, kp=-3.0, kd=-5.5):
         self.model = ManiuplatorModel(Tp)
         #self.model = SimpleModel(Tp)
         self.kp = kp
@@ -20,8 +20,8 @@ class FeedbackLinearizationController(Controller):
         """
         q = x[:2]
         q_dot = x[2:]
-        #u = q_r_ddot + self.kd*(q_dot - q_r_dot) + self.kp*(q - q_r)
-        u = q_r_ddot
+        u = q_r_ddot + self.kp * (q - q_r) + self.kd * (q_dot - q_r_dot)
+        #u = q_r_ddot
 
-        v = self.model.M(x) @ u + self.model.C(x) @ q_dot 
+        v = self.model.M(x) @ u + self.model.C(x) @ q_dot
         return v
